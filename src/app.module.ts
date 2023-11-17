@@ -4,10 +4,23 @@ import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { AppService } from './app.service';
+import { UserModule } from './user/user.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
     HttpModule,
+    UserModule,
+    MongooseModule.forRoot(process.env.MONGO_DB_URI, {
+      dbName: process.env.MONGO_DB_DATABASE,
+      connectionFactory: (connection) => {
+        if (connection.readyState) {
+          console.log('Mongo database connected successfully.');
+        }
+
+        return connection;
+      },
+    }),
     ConfigModule.forRoot({
       load: [configuration],
     }),

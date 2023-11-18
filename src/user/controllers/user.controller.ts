@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserService } from '../../user/services/user.service';
 import { UserProfileService } from '../../user/services/user-profile.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -73,7 +63,7 @@ export class UserController {
 
     const { name } = user.toObject();
 
-    await this.redisService.set(inputs.phoneNumber, name, 60 * 30);
+    await this.redisService.set(inputs.phoneNumber, name, redisConfig.user.ttl);
 
     return {
       message: 'User Showed Successfully (from DB)',

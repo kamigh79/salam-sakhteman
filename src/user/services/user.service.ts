@@ -20,8 +20,4 @@ export class UserService {
       phoneNumber: input,
     });
   }
-
-  async findById(id: string) {
-    return await this.userModel.findById(id).exec();
-  }
 }

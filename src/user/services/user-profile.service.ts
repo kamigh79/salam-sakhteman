@@ -18,12 +18,4 @@ export class UserProfileService {
 
     return result;
   }
-
-  async findByUserId(userId: string) {
-    return await this.profileModel
-      .findOne({
-        userId: userId,
-      })
-      .exec();
-  }
 }

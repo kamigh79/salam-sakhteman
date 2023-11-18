@@ -15,6 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { RedisService } from 'src/redis/redis.service';
+import redisConfig from 'src/config/redis.config';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
@@ -42,7 +43,11 @@ export class UserController {
       await this.profileService.create(profile);
     }
 
-    await this.redisService.set(inputs.phoneNumber, inputs.name, 60 * 30);
+    await this.redisService.set(
+      inputs.phoneNumber,
+      inputs.name,
+      redisConfig.user.ttl,
+    );
 
     return {
       message: 'User Created Successfully',

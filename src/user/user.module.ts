@@ -5,10 +5,8 @@ import { User, UserSchema } from './models/user.schema';
 import { UserProfileService } from './services/user-profile.service';
 import { UserProfile, UserProfileSchema } from './models/user-profile.schema';
 import { UserController } from './controllers/user.controller';
-import { RedisModule } from 'src/redis/redis.module';
 @Module({
   imports: [
-    RedisModule,
     MongooseModule.forFeature([
       {
         name: User.name,

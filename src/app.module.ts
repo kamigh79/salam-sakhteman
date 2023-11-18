@@ -6,10 +6,12 @@ import configuration from './config/configuration';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
     HttpModule,
+    RedisModule,
     UserModule,
     MongooseModule.forRoot(process.env.MONGO_DB_URI, {
       dbName: process.env.MONGO_DB_DATABASE,
